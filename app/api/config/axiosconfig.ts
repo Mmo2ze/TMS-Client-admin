@@ -7,14 +7,12 @@ const agent = new https.Agent({
   rejectUnauthorized: false,
 })
 const instance = axios.create({
-// .. where we make our configurations
-    baseURL: 'http://localhost:5078',
-    httpsAgent: agent,
+  baseURL: "https://localhost:7208",
+  httpsAgent: agent,
+  headers: {
+    accept: "*/*",
+    "Content-Type": "application/json",
+  },
 });
-
-// Where you would set stuff like your 'Authorization' header, etc ...
-
-// Also add/ configure interceptors && all the other cool stuff
-
 
 export default instance;
