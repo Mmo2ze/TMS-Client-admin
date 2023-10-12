@@ -2,20 +2,30 @@
 import React , {useState} from 'react'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-const isEgyptianNumber = (number) => {
+import axios from "../config/clientaxaios";
+import { useAuth } from '@/AppState';
+const isEgyptianNumber = (number: string):boolean => {
   const pattern = /^01\d{9}$/;
   return pattern.test(number);
 };
 
 const page = () => {
-  const [sentcode, setSentcode] = useState(false);
+  const [sentCode, setCodeCode] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState('');
-
-  const handleSentCode = (e) => {
+  const { HaveRole, Roles } = useAuth();
+  
+  console.log(Roles)
+  const  handleSentCode = async (e : any) => {
     e.preventDefault();
     if (isEgyptianNumber(phoneNumber)) {
-      setSentcode(true);
+      var body = { phone : phoneNumber}
+      try{
+        var response = await axios.post('/api/auth/login',JSON.stringify(body));
+        console.log(response);
+        setCodeCode(true);
+      }catch(e){
+        console.log(e);
+      }
     } else {
       toast.error('الرقم المدخل غير صحيح. يجب أن يكون بصيغة مصرية صحيحة.');
     }
@@ -23,7 +33,7 @@ const page = () => {
 
   return (
     <> 
-   {sentcode ? ( <section className="  bg-gray-900">
+   {sentCode ? ( <section className="  bg-gray-900">
     <div className="flex direction-r flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
 
       <div className="w-full  rounded-lg shadow  border md:mt-0 sm:max-w-md xl:p-0  bg-gray-800  border-gray-700">

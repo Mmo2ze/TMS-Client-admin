@@ -1,5 +1,5 @@
 import { NextResponse, NextRequest } from "next/server";
-import axios from "../../config/axiosconfig";
+import axios from "../../../config/axiosconfig";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 

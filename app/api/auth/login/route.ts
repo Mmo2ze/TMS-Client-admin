@@ -1,5 +1,5 @@
 import { NextResponse, NextRequest } from "next/server";
-import axios from "../../config/axiosconfig";
+import axios from "../../../config/axiosconfig";
 import { cookies } from "next/headers";
 type ResponseData = {
   message: string;
@@ -24,11 +24,11 @@ export async function POST(req: NextRequest) {
       }else
       return NextResponse.json({
         message: "success but jwt could not get jwt from api",
+        messages: res.data.data.messages,
       });
     } catch (err: any) {
-      const errors = err.response.data.errors;
+      const errors = err.response.data.messages;
       if (errors) {
-        console.log(errors);
         return NextResponse.json({ errors: errors }, { status: 400 });
       }
 
