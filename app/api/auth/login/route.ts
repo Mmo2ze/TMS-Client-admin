@@ -8,7 +8,6 @@ type ResponseData = {
 export async function POST(req: NextRequest) {
   try {
     const { phone } = await req.json();
-
     var data = JSON.stringify(phone);
     let config = {
       method: "post",
@@ -22,7 +21,7 @@ export async function POST(req: NextRequest) {
       if (jwt) {
         cookies().set("JWT", jwt);
         return NextResponse.json({ message: "success" });
-      }
+      }else
       return NextResponse.json({
         message: "success but jwt could not get jwt from api",
       });
@@ -32,6 +31,7 @@ export async function POST(req: NextRequest) {
         console.log(errors);
         return NextResponse.json({ errors: errors }, { status: 400 });
       }
+
       console.log(err);
       //5000
       return NextResponse.json(
