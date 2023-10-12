@@ -4,8 +4,12 @@
 
 
 
-.direation-r{
+.direction-r{
   direction: rtl;
+}
+
+.direction-l{
+  direction: ltr;
 }
 
 /* :root {
