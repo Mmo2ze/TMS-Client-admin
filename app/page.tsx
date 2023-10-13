@@ -11,6 +11,7 @@ export default function Home() {
     return <h1>You are the best Admin in the world</h1>;
   } else {
     const router = useRouter();
+    router.push("/login")
     
   }
 }
