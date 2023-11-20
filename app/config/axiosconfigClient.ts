@@ -20,21 +20,24 @@ const resultObject : any  = {};
 
 // Loop through the key-value pairs and parse them into the result object
 for (const pair of keyValuePairs) {
+
 const [key, value] = pair.split('=');
-resultObject[key.trim()] = value.trim();
+if(value && key){
+  resultObject[key.trim()] = value.trim();
+}
 }
 
 
-let jwt = resultObject.JWT
+let jwt = resultObject.JWT||""
 
 
 const instance = axios.create({
-  baseURL: "http://localhost:5078",
+  baseURL: "https://mrahmedawad.online/",
   httpsAgent: agent,
   headers: {
     accept: "*/*",
     "Content-Type": "application/json",
-    "Authorization": "Bearer " + jwt
+    Authorization: "Bearer " + jwt,
   },
 });
 
