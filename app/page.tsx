@@ -14,7 +14,7 @@ export default function Home() {
 
   let config = {
     method: "get",
-    url: "/api/admin/teacher"
+    url: "/api/admin/test"
   };
 var res =  axios.request(config)
 
