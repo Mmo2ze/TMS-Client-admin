@@ -1,3 +1,4 @@
+'use client'
 import React , {useState} from "react";
 import CloseIcon from '@mui/icons-material/Close';
 import Inputs from "../inputs/Inputs";

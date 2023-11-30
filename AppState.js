@@ -1,5 +1,6 @@
 
 'use client'
+
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import  axios from "./app/config/axiosconfigClient"
 
@@ -27,7 +28,6 @@ export const AuthProvider = ({ children }) => {
         setRoles(["UnAuthorized"]);
       }
     };
-
     TestAut(); 
   }, []); 
 
@@ -41,3 +41,4 @@ export const AuthProvider = ({ children }) => {
 export const useAuth = () => {
   return useContext(AuthContext);
 };
+ 

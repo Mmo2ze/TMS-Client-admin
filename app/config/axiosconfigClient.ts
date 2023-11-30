@@ -6,8 +6,11 @@ const agent = new https.Agent({
 })
 const resultObject : any  = {};
 
-if(typeof document !== 'undefined'){
-const allCookies = document.cookie;
+
+const allCookies = typeof document !== 'undefined' ? document.cookie : '';
+
+
+
 const inputString = allCookies
 const keyValuePairs : any = inputString.split(';');
 
@@ -18,6 +21,7 @@ const [key, value] = pair.split('=');
 if(value && key){
   resultObject[key.trim()] = value.trim();
 }
+
 }
 }
 

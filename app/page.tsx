@@ -1,4 +1,3 @@
-"use client";
 import { useAuth } from "@/AppState";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
