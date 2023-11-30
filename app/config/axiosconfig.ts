@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { cookies } from 'next/headers';
 const https = require('https')
-// const token = cookies().get('JWT')?.value;
+const token = cookies().get('JWT')?.value;
 // Next we make an 'instance' of it
 const agent = new https.Agent({
   rejectUnauthorized: false,
@@ -13,7 +13,7 @@ const instance = axios.create({
   headers: {
     accept: "*/*",
     "Content-Type": "application/json",
-    // "Authorization": "Bearer " + token
+    "Authorization": "Bearer " + token
   },
 });
 

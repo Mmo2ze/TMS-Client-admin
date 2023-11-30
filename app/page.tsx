@@ -4,19 +4,22 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Apptest from "../components/test/Test"
 import Tabels from "../components/tabels/Tabels"
-import axios from "./config/axiosconfigClient"
-
+import axios from "./config/clientaxaios"
+import { useEffect } from "react";
 
 export default function Home() {
 
-  // const res = axios.post('/api/admin/teacher')
 
-
-  let config = {
-    method: "get",
-    url: "/api/admin/test"
-  };
-var res =  axios.request(config)
+  useEffect(() => {
+    const getdata = async () => {
+      try {
+        var response = await axios.get("/api/admin/teacher");
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    getdata();
+  }, []);
 
   const { HaveRole, Roles } = useAuth();
   if(HaveRole([null]))

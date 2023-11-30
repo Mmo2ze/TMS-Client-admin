@@ -18,7 +18,6 @@ export async function POST(req: NextRequest) {
   };
   try {
     var res = await axios.request(config);
-    console.log(res.data);
     cookies().set("JWT", res.data.data.token);
 
     return NextResponse.json({ message: "success" });
@@ -26,7 +25,6 @@ export async function POST(req: NextRequest) {
     const response = err.response;
     const errors = response.data.errors;
     if (errors) {
-      console.log(errors);
       if (response?.data?.data?.token) {
         cookies().set("JWT", response.data.data.token);
       }
@@ -36,9 +34,7 @@ export async function POST(req: NextRequest) {
       status: response.status,
       statusText: response.statusText,
     };
-    console.log(responseConc);
     if (err.response.status === 401) {
-      console.log(response.request);
       return redirect("/login");
     }
     //5001

@@ -4,19 +4,12 @@ const https = require('https')
 const agent = new https.Agent({
   rejectUnauthorized: false,
 })
-
-
-
-const allCookies = document.cookie;
-
-
-const inputString = allCookies
-
-// Split the string into key-value pairs separated by a semicolon
-const keyValuePairs : any = inputString.split(';');
-
-// Initialize an empty object to store the result
 const resultObject : any  = {};
+
+if(typeof document !== 'undefined'){
+const allCookies = document.cookie;
+const inputString = allCookies
+const keyValuePairs : any = inputString.split(';');
 
 // Loop through the key-value pairs and parse them into the result object
 for (const pair of keyValuePairs) {
@@ -26,6 +19,12 @@ if(value && key){
   resultObject[key.trim()] = value.trim();
 }
 }
+}
+
+
+// Split the string into key-value pairs separated by a semicolon
+
+// Initialize an empty object to store the result
 
 
 let jwt = resultObject.JWT||""

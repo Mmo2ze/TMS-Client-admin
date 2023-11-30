@@ -8,7 +8,6 @@ export async function GET() {
   if (JWT) {
     try {
       const response = await axios.get("/api/auth/myroles",{headers:{"Authorization": "Bearer "+JWT }});
-      console.log(response.data);
       return NextResponse.json(response.data);
     } catch (error:any){
       return NextResponse.json("unauthorized", { status: 401 });

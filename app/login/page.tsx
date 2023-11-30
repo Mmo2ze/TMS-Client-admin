@@ -28,10 +28,8 @@ const page = () => {
     var body = { code: valueCode };
     try {
       var response = await axios.post("/api/auth/verify", JSON.stringify(body));
-      console.log(response);
     router.back()
     } catch (e) {
-      console.log(e);
     }
   };
 
@@ -44,10 +42,8 @@ const page = () => {
           "/api/auth/login",
           JSON.stringify(body)
         );
-        console.log(response);
         setCodeCode(true);
       } catch (e) {
-        console.log(e);
       }
     } else {
       toast.error("الرقم المدخل غير صحيح. يجب أن يكون بصيغة مصرية صحيحة.");
