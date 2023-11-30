@@ -1,4 +1,3 @@
-"use client";
 import { useAuth } from "@/AppState";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -14,9 +13,10 @@ export default function Home() {
 
   let config = {
     method: "get",
-    url: "/api/admin/test"
+    url: "/api/admin/teacher"
   };
 var res =  axios.request(config)
+
 
   const { HaveRole, Roles } = useAuth();
   if(HaveRole([null]))
