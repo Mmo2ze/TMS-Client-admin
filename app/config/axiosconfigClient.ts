@@ -23,7 +23,7 @@ if(value && key){
 }
 
 }
-}
+
 
 
 // Split the string into key-value pairs separated by a semicolon
