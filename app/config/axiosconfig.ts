@@ -1,15 +1,11 @@
 import axios from 'axios';
 import { cookies } from 'next/headers';
-const https = require('https')
-const token = cookies().get('JWT')?.value;
+const token = cookies().get("token")?.value;
 // Next we make an 'instance' of it
-const agent = new https.Agent({
-  rejectUnauthorized: false,
-})
+
 // console.log("ToKEN"+token)
 const instance = axios.create({
-  baseURL: "https://mrahmedawad.online/",
-  httpsAgent: agent,
+  baseURL: "https://zagazig.store/",
   headers: {
     accept: "*/*",
     "Content-Type": "application/json",

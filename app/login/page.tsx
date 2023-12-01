@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import axios from "../config/clientaxaios";
+import axios from "../config/axiosconfigClient";
 import { useAuth } from "@/AppState";
 import { useRouter } from "next/navigation";
 const isEgyptianNumber = (number: string): boolean => {
@@ -25,10 +25,15 @@ const page = () => {
   }, [Roles]);
   const handelSubmitCode = async (e: any) => {
     e.preventDefault();
-    var body = { code: valueCode };
+    var body =  valueCode ;
     try {
-      var response = await axios.post("/api/auth/verify", JSON.stringify(body));
-    router.back()
+      var response = await axios.post(
+        "/api/Auth/admin/verify",
+        JSON.stringify(body)
+      );
+      localStorage.setItem("token", response.data.data.token);
+      document.cookie = `token=${response.data.data.token}`;
+      router.back();
     } catch (e) {
     }
   };
@@ -36,12 +41,15 @@ const page = () => {
   const handleSentCode = async (e: any) => {
     e.preventDefault();
     if (isEgyptianNumber(phoneNumber)) {
-      var body = { phone: phoneNumber };
+      var body =  phoneNumber ;
       try {
         var response = await axios.post(
-          "/api/auth/login",
+          "/api/Auth/admin/login",
           JSON.stringify(body)
         );
+        localStorage.setItem("token", response.data.data.token);
+        document.cookie = `token=${response.data.data.token}`;
+
         setCodeCode(true);
       } catch (e) {
       }

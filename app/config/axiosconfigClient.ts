@@ -1,9 +1,5 @@
 import axios from 'axios';
-const https = require('https')
 
-const agent = new https.Agent({
-  rejectUnauthorized: false,
-})
 const resultObject : any  = {};
 
 
@@ -31,16 +27,15 @@ if(value && key){
 // Initialize an empty object to store the result
 
 
-let jwt = resultObject.JWT||""
+let jwt = resultObject.token|| "";
 
 
 const instance = axios.create({
-  baseURL: "https://mrahmedawad.online/",
-  httpsAgent: agent,
+  baseURL: "https://zagazig.store/",
   headers: {
     accept: "*/*",
     "Content-Type": "application/json",
-    Authorization: "Bearer " + jwt,
+    Authorization: jwt!=""?"Bearer " + jwt:"",
   },
 });
 

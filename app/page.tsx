@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Apptest from "../components/test/Test"
 import Tabels from "../components/tabels/Tabels"
-import axios from "./config/clientaxaios"
+import axios from "./config/axiosconfigClient"
 import { useEffect } from "react";
 
 export default function Home() {
