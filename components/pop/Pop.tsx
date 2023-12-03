@@ -63,7 +63,7 @@ const Pop: React.FC<{ onClose: any; id: number }> = ({ onClose, id }) => {
   const handleUpdate = async () => {
     try {
       console.log("Attempting to update data...");
-      await axios.put(`/api/admin/teacher/${id}`, {
+      var response = await axios.put(`/api/admin/teacher/${id}`, {
         name: nameTetsher,
         id: idTetsher,
         endOfSubscription: end,
@@ -73,6 +73,10 @@ const Pop: React.FC<{ onClose: any; id: number }> = ({ onClose, id }) => {
         status: status,
         subject: subject,
       });
+        console.log(response.data.messages);
+        if(response.data.messages[0].statusCode == 303){
+          alert("ادخل رقم واتس صحيح يعرص");
+        }
       console.log("Data updated successfully!");
       onClose();
     } catch (error) {

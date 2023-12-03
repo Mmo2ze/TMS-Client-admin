@@ -3,7 +3,7 @@ import InputForm from '../inputForm/InputForm'
 import Buttons from "../buttons/Buttons";
 import {useState} from "react"
 import axios from "../../app/config/axiosconfigClient";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 const FormAdd = () => {
   const [name , setName] = useState("")
@@ -11,7 +11,8 @@ const FormAdd = () => {
   const [subject , setSubject] = useState("")
   const [status , setStatus] = useState("")
   const [price , setPrice] = useState("")
-
+  const router = useRouter();
+  
 
   const handelSubmit = async () => {
     
@@ -24,9 +25,8 @@ const FormAdd = () => {
         status: status,
         paymentPrice: price,
       });
-      console.log("Data updated successfully!");
-      const router = useRouter();
       router.push("/")
+      console.log("Data updated successfully!");
     } catch (error) {
       console.error("Error updating data:", error);
     }

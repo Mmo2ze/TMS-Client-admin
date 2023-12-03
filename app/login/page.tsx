@@ -18,30 +18,31 @@ const page = () => {
   const router = useRouter();
   useEffect(() => {
     if (!HaveRole(["UnAuthorized", "HaveAdminCode"])) {
-          router.back();
-
+      router.push("/");
     }
     if (HaveRole(["HaveAdminCode"])) setCodeCode(true);
   }, [Roles]);
   const handelSubmitCode = async (e: any) => {
     e.preventDefault();
-    var body =  valueCode ;
+    var body = valueCode;
     try {
       var response = await axios.post(
         "/api/Auth/admin/verify",
-        JSON.stringify(body)
+        JSON.stringify(body),
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
       );
       localStorage.setItem("token", response.data.data.token);
       document.cookie = `token=${response.data.data.token}`;
-      router.back();
-    } catch (e) {
-    }
+      window.location.href = "/";
+    } catch (e) {}
   };
 
   const handleSentCode = async (e: any) => {
     e.preventDefault();
     if (isEgyptianNumber(phoneNumber)) {
-      var body =  phoneNumber ;
+      var body = phoneNumber;
       try {
         var response = await axios.post(
           "/api/Auth/admin/login",
@@ -51,8 +52,7 @@ const page = () => {
         document.cookie = `token=${response.data.data.token}`;
 
         setCodeCode(true);
-      } catch (e) {
-      }
+      } catch (e) {}
     } else {
       toast.error("الرقم المدخل غير صحيح. يجب أن يكون بصيغة مصرية صحيحة.");
     }
