@@ -1,8 +1,6 @@
-import React from 'react'
-
-const Buttons = ({text} : {text:string}) => {
+const Buttons = ({text , onSubmit} : {text:string , onSubmit : any}) => {
   return (
-    <button className='bg-button-color my-3 p-4 w-full text-white rounded-lg'> {text}</button>
+    <button className='bg-button-color my-3 p-4 w-full text-white rounded-lg' onClick={onSubmit}> {text}</button>
   )
 }
 
