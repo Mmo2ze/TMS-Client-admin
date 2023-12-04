@@ -5,18 +5,20 @@ import CloseIcon from "@mui/icons-material/Close";
 import Inputs from "../inputs/Inputs";
 import Buttons from "../buttons/Buttons";
 
+
+
 interface Teacher {
   name: string;
   endOfSubscription: string;
   id: string;
-  paymentPrice: number;
+  paymentPrice: number| null;
   payments: string | null;
   phone: string;
   status: string;
   subject: string;
 }
 
-const Pop: React.FC<{ onClose: any; id: number }> = ({ onClose, id }) => {
+const Pop: React.FC<{ onClose: any; id: number; paymentPrice?: number }> = ({ onClose, id, paymentPrice }) => {
   const [data, setData] = useState<Teacher>({
     name: "",
     endOfSubscription: "",
@@ -67,7 +69,7 @@ const Pop: React.FC<{ onClose: any; id: number }> = ({ onClose, id }) => {
         name: nameTetsher,
         id: idTetsher,
         endOfSubscription: end,
-        paymentPrice: pricePy,
+        paymentPrice: paymentPrice || 0,
         payments: payments,
         phone: phone,
         status: status,

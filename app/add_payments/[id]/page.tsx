@@ -7,6 +7,11 @@ interface Props {
   };
 }
 
+interface PaymentData {
+  amount: number;
+  payedOn: string; 
+}
+
 const page: React.FC<Props> = (props) => {
   const [data , setData] = useState([])
 const [amount , setAmount] = useState("")
@@ -86,7 +91,7 @@ return(
             </tr>
           </thead>
           <tbody>
-            {data.map((da)=>(
+            {data.map((da: PaymentData)=>(
               <tr className="border-b bg-gray-800 border-gray-700">
               <th scope="row" className="px-6 py-4 font-medium  whitespace-nowrap text-white">
                 {da.amount}

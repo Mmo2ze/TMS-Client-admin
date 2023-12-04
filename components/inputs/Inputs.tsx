@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Inputs = ({ label, typeInput, value, onChange }: { label: string, typeInput: string, value: string, onChange: (value: string) => void }) => {
+const Inputs = ({ label, typeInput, value, onChange }: { label: string, typeInput: string, value: any, onChange: (value: any) => void }) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     onChange(event.target.value);
   };

@@ -70,7 +70,7 @@ const handelCansle = () => {
     </Link>
 
       </div>
-      {showPop && <Pop id={selectedId} onClose={handleClosePop} />}
+      {showPop && <Pop id={selectedId} onClose={handleClosePop} paymentPrice={selectedTeacher.paymentPrice || 0} />}
       {popDelete && <PopDelete onDelete={handleDeleteUser} onCansle={handelCansle} id={deleteID}/>}
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table className="w-full text-sm text-left rtl:text-right text-gray-400">
