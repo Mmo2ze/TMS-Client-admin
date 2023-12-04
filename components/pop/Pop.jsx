@@ -7,19 +7,9 @@ import Buttons from "../buttons/Buttons";
 
 
 
-interface Teacher {
-  name: string;
-  endOfSubscription: string;
-  id: string;
-  paymentPrice: number| null;
-  payments: string | null;
-  phone: string;
-  status: string;
-  subject: string;
-}
 
-const Pop: React.FC<{ onClose: any; id: number; paymentPrice?: number }> = ({ onClose, id, paymentPrice }) => {
-  const [data, setData] = useState<Teacher>({
+const Pop = ({ onClose, id, paymentPrice }) => {
+  const [data, setData] = useState({
     name: "",
     endOfSubscription: "",
     id: "",
