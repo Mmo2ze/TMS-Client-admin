@@ -53,7 +53,7 @@ const page = () => {
         setCodeCode(true);
       } catch (e) {}
     } else {
-      toast.error("الرقم المدخل غير صحيح. يجب أن يكون بصيغة مصرية صحيحة.");
+      alert("ادخل رقم هاتف صحيح");
     }
   };
   if (HaveRole([null])) {
@@ -135,18 +135,7 @@ const page = () => {
             </div>
           </section>
         )}
-        <ToastContainer
-          position="top-right"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="dark"
-        />
+
       </>
     );
   }
