@@ -1,10 +1,7 @@
 'use client';
 import { useAuth } from "@/AppState";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
-import Apptest from "../components/test/Test"
 import Tabels from "../components/tabels/Tabels"
-import axios from "./config/axiosconfigClient"
 
 export default function Home() {
 
