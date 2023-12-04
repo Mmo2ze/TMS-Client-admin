@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "../../app/config/axiosconfigClient";
 import Pop from "../pop/Pop";
 import Link from 'next/link';
+import PopDelete from "../popDelete/PopDelete";
+
 
 interface Teacher {
   name: string;
@@ -18,7 +20,8 @@ const Tabels: React.FC = () => {
   const [data, setData] = useState<Teacher[]>([]);
   const [showPop, setShowPop] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
-
+  const [popDelete ,SetPopDelete] = useState(false)
+  const [deleteID , setDeleteId] = useState("")
   useEffect(() => {
     const getdata = async () => {
       try {
@@ -44,12 +47,22 @@ const Tabels: React.FC = () => {
   };
 
   const handleDelete = async (id: string) => {
-    setData(prevData => prevData.filter(item => item.id !== id));
-     await axios.delete(`/api/admin/teacher/${id}`);
-
+    SetPopDelete(true)
+    setDeleteId(id)
+    
   };
+  const handleDeleteUser = async () =>{
+    await axios.delete(`/api/admin/teacher/${deleteID}`);
+    setData((prevData) => prevData.filter((teacher) => teacher.id !== deleteID));
+    SetPopDelete(false);
+  }
+
+const handelCansle = () => {
+  SetPopDelete(false)
+}
+
   return (
-    <div>
+    <div className="relative">
       <div className="md:flex justify-between align-center mb-6 text-white text-2xl font-bold" >
       <h1 >Name Oll Teacher</h1>
       <Link href="/add_teatcher" passHref  >
@@ -58,6 +71,7 @@ const Tabels: React.FC = () => {
 
       </div>
       {showPop && <Pop id={selectedId} onClose={handleClosePop} />}
+      {popDelete && <PopDelete onDelete={handleDeleteUser} onCansle={handelCansle} id={deleteID}/>}
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table className="w-full text-sm text-left rtl:text-right text-gray-400">
           <thead className="text-xs uppercase bg-gray-700 text-gray-400">
@@ -92,6 +106,9 @@ const Tabels: React.FC = () => {
               <th scope="col" className="px-6 py-3">
                 <span className="sr-only">Delete</span>
               </th>
+              <th scope="col" className="px-6 py-3">
+                <span className="sr-only">Add Payments</span>
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -119,6 +136,13 @@ const Tabels: React.FC = () => {
                   <h3 onClick={() => handleDelete(da.id)} className="font-medium text-red-500 hover:underline">
                   Delete
                   </h3>
+                </td>
+                <td className="px-6 py-4 text-right">
+                    <Link href={`/add_payments/${da.id}`}> 
+                  <h3  className="font-medium text-green-500 hover:underline">
+                   Payments
+                  </h3>
+                    </Link>
                 </td>
               </tr>
             ))}
