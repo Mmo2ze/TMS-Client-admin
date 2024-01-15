@@ -4,6 +4,7 @@ import {useParams} from "next/navigation";
 import axios from "../../config/axiosconfigClient";
 import { font } from "../../func/IBMPlexSansArabic-Medium-bold";
 import QRious from 'qrious';
+import Image from 'public/Front4.png';
 
 import jsPDF from "jspdf";
 
@@ -22,25 +23,43 @@ function Page() {
                 console.log(error)
             })
     },[])
-    const generateNewPrintPDF = () => {
-        const pdf = new jsPDF("p", "mm", "a4");
+    const generateNewPrintPDF = async () => {
+        const pdf = new jsPDF ("p", "mm", "a4");
         const imageWidth = 95;
         const imageHeight = 50;
         const imagesPerRow = 2;
         const rowsPerPage = 5;
         const spaceBetweenImages = 10;
-        const totalPages = Math.ceil(studentsClass.length / (imagesPerRow * rowsPerPage));
+        const totalPages = Math.ceil (studentsClass.length / (imagesPerRow * rowsPerPage));
         const nameOffsetX = 7;
         const nameOffsetY = -40;
-
+        let ImageData ;
+        fetch("/Front4.png")
+            .then((res) => res.blob())
+            .then((blob) => {
+                // Read the Blob as DataURL using the FileReader API
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                    console.log ( reader.result );
+                    // Logs data:image/jpeg;base64,wL2dvYWwgbW9yZ...
+                    ImageData = reader.result;
+                    // Convert to Base64 string
+                    // const base64 = getBase64StringFromDataURL(reader.result);
+                    // x = convertBase64ToBinaryString(base64);
+                    // console.log(base64);
+                    // Logs wL2dvYWwgbW9yZ...
+                };
+                reader.readAsDataURL ( blob );
+            } );
         for (let page = 0; page < totalPages; page++) {
-            pdf.addFileToVFS("IBMPlexSansArabic-Medium-bold.ttf", font);
-            pdf.addFont("IBMPlexSansArabic-Medium-bold.ttf", "IBMPlexSansArabic-Medium", "bold");
-            pdf.setFont("IBMPlexSansArabic-Medium", "bold");
-            pdf.setDrawColor(0);
-            pdf.setFillColor(255, 255, 255);
-            pdf.setTextColor(255, 255, 255);
-            pdf.rect(0, 0, pdf.internal.pageSize.getWidth(), pdf.internal.pageSize.getHeight(), "F");
+            pdf.addFileToVFS ("IBMPlexSansArabic-Medium-bold.ttf", font);
+            pdf.addFont ("IBMPlexSansArabic-Medium-bold.ttf", "IBMPlexSansArabic-Medium", "bold");
+            pdf.setFont ("IBMPlexSansArabic-Medium", "bold");
+            pdf.setDrawColor (0);
+            pdf.setFillColor (255, 255, 255);
+            pdf.setTextColor (255, 255, 255);
+
+            pdf.rect (0, 0, pdf.internal.pageSize.getWidth (), pdf.internal.pageSize.getHeight (), "F");
             for (let row = 0; row < rowsPerPage; row++) {
                 for (let col = 0; col < imagesPerRow; col++) {
                     const studentIndex = page * rowsPerPage * imagesPerRow + row * imagesPerRow + col;
@@ -50,31 +69,30 @@ function Page() {
                         const yPos = padding.top + row * (imageHeight + spaceBetweenImages);
                         const nameXPos = xPos + nameOffsetX;
                         const nameYPos = yPos + imageHeight + nameOffsetY;
-                        const qrCodeValue = student?.id?.toString();
-                        const qr = new QRious({
+                        const qrCodeValue = student?.id?.toString ();
+                        const qr = new QRious ({
                             value: qrCodeValue,
                             background: '#dfdedc',
                             size: 50,
                         });
 
-
-                        pdf.addImage("/Front4.png", "JPEG", xPos, yPos, imageWidth, imageHeight);
+                        pdf.addImage ('/Front4.png', "JPEG", xPos, yPos, imageWidth, imageHeight);
                         const qrCodeXPos = xPos + imageWidth / 2;
                         const qrCodeYPos = yPos + imageHeight / 2;
 
-                        pdf.text(student.name || "", nameXPos, nameYPos);
-                        pdf.text((student.privateId && student.privateId.toString()) || "", nameXPos + 10, nameYPos + 15);
-                        pdf.addImage(qr.toDataURL(), "JPEG", qrCodeXPos + 14, qrCodeYPos - 19, 33, 33);
+                        pdf.text (student.name || "", nameXPos, nameYPos);
+                        pdf.text ((student.privateId && student.privateId.toString ()) || "", nameXPos + 10, nameYPos + 15);
+                        pdf.addImage (qr.toDataURL (), "JPEG", qrCodeXPos + 14, qrCodeYPos - 19, 33, 33);
                     }
                 }
             }
 
             if (page !== totalPages - 1) {
-                pdf.addPage();
+                pdf.addPage ();
             }
         }
 
-        pdf.save(`Tass-${new Date().toLocaleDateString()}`);
+        pdf.save (`Tass-${new Date ().toLocaleDateString ()}`);
     };
 
 
