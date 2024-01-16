@@ -23,6 +23,5 @@ export default function Home() {
   } else {
     const router = useRouter();
     router.push("/login")
-    
   }
 }

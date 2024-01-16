@@ -5,12 +5,14 @@ import axios from "../../config/axiosconfigClient";
 import { font } from "../../func/IBMPlexSansArabic-Medium-bold";
 import QRious from 'qrious';
 import Image from 'public/Front4.png';
+import ProgressBar from 'react-bootstrap/ProgressBar';
 
 import jsPDF from "jspdf";
 
 function Page() {
     const padding = { top: 3, right: 5, bottom: 45, left: 0 };
     const [studentsClass, setStudentsClass] = useState([]);
+    const [process, setProcess] = useState(0);
     const { id } = useParams()
     useEffect(() => {
         console.log('id', id)
@@ -23,6 +25,13 @@ function Page() {
                 console.log(error)
             })
     },[])
+
+
+    const HandelProsessing = () => {
+        // Using the functional form of setState to ensure proper updates
+        setProcess(prevCounter => prevCounter + 1);
+    };
+    let counter = 0;
     const generateNewPrintPDF = async () => {
         const pdf = new jsPDF ("p", "mm", "a4");
         const imageWidth = 95;
@@ -34,23 +43,23 @@ function Page() {
         const nameOffsetX = 7;
         const nameOffsetY = -40;
         let ImageData ;
-        fetch("/Front4.png")
-            .then((res) => res.blob())
-            .then((blob) => {
-                // Read the Blob as DataURL using the FileReader API
-                const reader = new FileReader();
-                reader.onloadend = () => {
-                    console.log ( reader.result );
-                    // Logs data:image/jpeg;base64,wL2dvYWwgbW9yZ...
-                    ImageData = reader.result;
-                    // Convert to Base64 string
-                    // const base64 = getBase64StringFromDataURL(reader.result);
-                    // x = convertBase64ToBinaryString(base64);
-                    // console.log(base64);
-                    // Logs wL2dvYWwgbW9yZ...
-                };
-                reader.readAsDataURL ( blob );
-            } );
+        // fetch("/Front4.png")
+        //     .then((res) => res.blob())
+        //     .then((blob) => {
+        //         // Read the Blob as DataURL using the FileReader API
+        //         const reader = new FileReader();
+        //         reader.onloadend = () => {
+        //             console.log ( reader.result );
+        //             // Logs data:image/jpeg;base64,wL2dvYWwgbW9yZ...
+        //             ImageData = reader.result;
+        //             // Convert to Base64 string
+        //             // const base64 = getBase64StringFromDataURL(reader.result);
+        //             // x = convertBase64ToBinaryString(base64);
+        //             // console.log(base64);
+        //             // Logs wL2dvYWwgbW9yZ...
+        //         };
+        //         reader.readAsDataURL ( blob );
+        //     } );
         for (let page = 0; page < totalPages; page++) {
             pdf.addFileToVFS ("IBMPlexSansArabic-Medium-bold.ttf", font);
             pdf.addFont ("IBMPlexSansArabic-Medium-bold.ttf", "IBMPlexSansArabic-Medium", "bold");
@@ -58,10 +67,11 @@ function Page() {
             pdf.setDrawColor (0);
             pdf.setFillColor (255, 255, 255);
             pdf.setTextColor (255, 255, 255);
-
             pdf.rect (0, 0, pdf.internal.pageSize.getWidth (), pdf.internal.pageSize.getHeight (), "F");
             for (let row = 0; row < rowsPerPage; row++) {
                 for (let col = 0; col < imagesPerRow; col++) {
+                    await new Promise(resolve => setTimeout(resolve, 1));
+                    setProcess(counter++ /studentsClass.length * 100);
                     const studentIndex = page * rowsPerPage * imagesPerRow + row * imagesPerRow + col;
                     if (studentIndex < studentsClass.length) {
                         const student = studentsClass[studentIndex];
@@ -75,7 +85,6 @@ function Page() {
                             background: '#dfdedc',
                             size: 50,
                         });
-
                         pdf.addImage ('/Front4.png', "JPEG", xPos, yPos, imageWidth, imageHeight);
                         const qrCodeXPos = xPos + imageWidth / 2;
                         const qrCodeYPos = yPos + imageHeight / 2;
@@ -104,12 +113,13 @@ axios.post(`/api/Admin/AcceptCardsOrder/${id}`)
                 console.log("تم قبول الطلب بنجاح")
             })
             .catch(error => {
-                console.log("errr")
+                    console.log("errr")
             })
     };
+
     return (
         <div>
-            <h1>{studentsClass.length +' طلاب '}</h1>
+            <h1>{studentsClass.length + ' طلاب '}</h1>
             <div className="flex justify-center my-12">
                 <button onClick={generateNewPrintPDF} type="button"
                         className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
@@ -119,9 +129,12 @@ axios.post(`/api/Admin/AcceptCardsOrder/${id}`)
                         className="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800">
                     قبول الطلب
                 </button>
+                <h1>{process}</h1>
             </div>
+            <ProgressBar now={process} label={`${process.toFixed(0)}%`} />
         </div>
     )
+
 
 }
 
