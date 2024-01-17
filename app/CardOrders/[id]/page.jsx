@@ -28,7 +28,7 @@ function Page () {
 
 
 
-    let counter = 0;
+    let counter = 1;
     const generateNewPrintPDF = async () => {
         const pdf = new jsPDF ( "p", "mm", "a4" );
         const imageWidth = 95;
