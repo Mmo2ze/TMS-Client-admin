@@ -7,7 +7,7 @@ import Link from "next/link";
 function Page () {
     var [orders, setOrders] = useState ([])
     useEffect (() => {
-        axios.get ("api/Admin/CardsOrder")
+        axios.get ("api/v1/Admin/CardsOrder")
             .then (response => {
                 setOrders (response.data);
                 console.log (response.data)

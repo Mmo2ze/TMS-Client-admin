@@ -21,7 +21,7 @@ const Pop = ({ onClose, id, paymentPrice }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`/api/admin/teacher/${id}`);
+        const response = await axios.get(`/api/v1/admin/teacher/${id}`);
         setData(response.data);
       } catch (e) {
         console.log(e);
@@ -51,7 +51,7 @@ const Pop = ({ onClose, id, paymentPrice }) => {
   const handleUpdate = async () => {
     try {
       console.log("Attempting to update data...");
-      var response = await axios.put(`/api/admin/teacher/${id}`, {
+      var response = await axios.put(`/api/v1/admin/teacher/${id}`, {
         name: nameTetsher,
         id: idTetsher,
         endOfSubscription: end,

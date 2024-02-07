@@ -16,7 +16,7 @@ function Page () {
     const {id} = useParams ()
     useEffect ( () => {
         console.log ( 'id', id )
-        axios.get ( `/api/Admin/CardOrder/${id}` )
+        axios.get ( `/api/v1/Admin/CardOrder/${id}` )
             .then ( response => {
                 console.log ( response.data.data.students )
                 setStudentsClass ( response.data.data.students )
@@ -104,7 +104,7 @@ function Page () {
 
     let AcceptOrder = () => {
         console.log ( "جاري قبول الطلب" )
-        axios.post ( `/api/Admin/AcceptCardsOrder/${id}` )
+        axios.post ( `/api/v1/Admin/AcceptCardsOrder/${id}` )
             .then ( response => {
                 console.log ( response.data.data )
                 console.log ( "تم قبول الطلب بنجاح" )

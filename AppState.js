@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }) => {
     const TestAut = async () => {
       try {
         console.log("auth Context")
-        const response = await axios.get('/api/auth/myroles');
+        const response = await axios.get('/api/v1/auth/myroles');
         setRoles(response.data);
       } catch (error) {
         setRoles(["UnAuthorized"]);

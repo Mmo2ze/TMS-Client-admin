@@ -20,7 +20,7 @@ const [count, setCount] = useState<number>(1);
 
 const getdata = async () => {
   try {
-    const response = await axios.get(`/api/Admin/teahcer/payment/${props.params.id}?count=${count}`);
+    const response = await axios.get(`/api/v1/Admin/teahcer/payment/${props.params.id}?count=${count}`);
     setData(response.data);
   } catch (e) {
     console.log(e);
@@ -31,7 +31,7 @@ const getdata = async () => {
 const handleSubmit = async () => {
   try {
     console.log("Attempting to update data...");
-    await axios.post(`/api/admin/teacher/payment`, {
+    await axios.post(`/api/v1/admin/teacher/payment`, {
       teacherID: parseInt(props.params.id, 10), 
         amount: parseInt(amount, 10), 
       });

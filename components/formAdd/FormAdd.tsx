@@ -18,7 +18,7 @@ const FormAdd = () => {
     
     try {
       console.log("Attempting to update data...");
-      await axios.post(`/api/admin/teacher`, {
+      await axios.post(`/api/v1/admin/teacher`, {
         name: name,
         phone: phone,
         subject: subject,

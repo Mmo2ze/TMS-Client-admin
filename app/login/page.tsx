@@ -26,7 +26,7 @@ const page = () => {
     var body = valueCode;
     try {
       var response = await axios.post(
-        "/api/Auth/admin/verify",
+        "/api/v1/Auth/admin/verify",
         JSON.stringify(body),
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
@@ -44,7 +44,7 @@ const page = () => {
       var body = phoneNumber;
       try {
         var response = await axios.post(
-          "/api/Auth/admin/login",
+          "/api/v1/Auth/admin/login",
           JSON.stringify(body)
         );
         localStorage.setItem("token", response.data.data.token);

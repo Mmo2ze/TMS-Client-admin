@@ -25,7 +25,7 @@ const Tabels: React.FC = () => {
   useEffect(() => {
     const getdata = async () => {
       try {
-        const response = await axios.get("/api/admin/teacher");
+        const response = await axios.get("/api/v1/admin/teacher");
         setData(response.data);
       } catch (e) {
         console.log(e);
@@ -35,7 +35,7 @@ const Tabels: React.FC = () => {
   }, []);
 
   const handleClosePop = async () => {
-    const response = await axios.get("/api/admin/teacher");
+    const response = await axios.get("/api/v1/admin/teacher");
     setData(response.data);
     
     setShowPop(false);
@@ -52,7 +52,7 @@ const Tabels: React.FC = () => {
     
   };
   const handleDeleteUser = async () =>{
-    await axios.delete(`/api/admin/teacher/${deleteID}`);
+    await axios.delete(`/api/v1/admin/teacher/${deleteID}`);
     setData((prevData) => prevData.filter((teacher) => teacher.id !== deleteID));
     SetPopDelete(false);
   }
