@@ -64,6 +64,7 @@ function Page () {
             pdf.setDrawColor ( 0 );
             pdf.setFillColor ( 255, 255, 255 );
             pdf.setTextColor ( 255, 255, 255 );
+            pdf.setLanguage("en")
             pdf.rect ( 0, 0, pdf.internal.pageSize.getWidth (), pdf.internal.pageSize.getHeight (), "F" );
             for (let row = 0; row < rowsPerPage; row ++) {
                 for (let col = 0; col < imagesPerRow; col ++) {
@@ -76,13 +77,14 @@ function Page () {
                         const yPos = padding.top + row * (imageHeight + spaceBetweenImages);
                         const nameXPos = xPos + nameOffsetX;
                         const nameYPos = yPos + imageHeight + nameOffsetY;
-                        const qrCodeValue = student?.id?.toString ();
+                        const qrCodeValue = student?.privateId?.toString ();
                         const qr = new QRious ( {
                             value: qrCodeValue,
-                            background: '#dfdedc',
+                            background: 'rgba(151,59,151,0)',
+                            foreground: '#d5d5d5',
                             size: 50,
                         } );
-                        pdf.addImage ( '/Front4.png', "JPEG", xPos, yPos, imageWidth, imageHeight );
+                        pdf.addImage ( '/Front4.png', "JPEG", xPos, yPos, imageWidth -5, imageHeight );
                         const qrCodeXPos = xPos + imageWidth / 2;
                         const qrCodeYPos = yPos + imageHeight / 2;
                         // const nameWidth = pdf.getStringUnitWidth(student.name || "");
@@ -91,9 +93,9 @@ function Page () {
                         const nameWidth = pdf.getStringUnitWidth(student.name || "") * 11; 
                         const nameXText = qrCodeXPos - nameWidth / 2; 
 
-                        pdf.text ( student.name || "",  nameXText + 8, nameYPos + 1);
-                        pdf.text ( (student.privateId && student.privateId.toString ()) || "", nameXPos + 30, nameYPos + 15 );
-                        pdf.addImage ( qr.toDataURL (), "JPEG", qrCodeXPos + 12, qrCodeYPos - 21, 32, 32 );
+                        pdf.text ( student.name || "",  nameXText + 4, nameYPos + 3);
+                        pdf.text ( (student.privateId && student.privateId.toString ()) || "", nameXPos + 30, nameYPos + 13 );
+                        pdf.addImage ( qr.toDataURL (), "JPEG", qrCodeXPos + 4, qrCodeYPos - 21, 32, 32 );
                     }
                 }
             }
