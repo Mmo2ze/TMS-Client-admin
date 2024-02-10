@@ -70,6 +70,14 @@ const handelCansle = () => {
     </Link>
 
       </div>
+      <div className="text-end mb-3">  
+      <Link href="/CardOrders" passHref  >
+      <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+      Order Cards
+      </button>
+      </Link>
+
+      </div>
       {showPop && <Pop id={selectedId} onClose={handleClosePop} paymentPrice= {0} />}
       {popDelete && <PopDelete onDelete={handleDeleteUser} onCansle={handelCansle} id={0}/>}
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg">

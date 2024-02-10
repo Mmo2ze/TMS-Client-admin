@@ -21,6 +21,7 @@
     "framer-motion": "^10.16.4",
     "jspdf": "^2.5.1",
     "next": "^13.5.4",
+    "nextjs-progressbar": "^0.0.16",
     "qrious": "^4.0.0",
     "react": "^18",
     "react-bootstrap": "^2.9.2",

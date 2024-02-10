@@ -85,10 +85,15 @@ function Page () {
                         pdf.addImage ( '/Front4.png', "JPEG", xPos, yPos, imageWidth, imageHeight );
                         const qrCodeXPos = xPos + imageWidth / 2;
                         const qrCodeYPos = yPos + imageHeight / 2;
+                        // const nameWidth = pdf.getStringUnitWidth(student.name || "");
+                        // const nameXPosition = nameWidth <= 10 ? nameXPos + 10 : nameXPos + 15;
+                        // const nameXText = xPos + 20;
+                        const nameWidth = pdf.getStringUnitWidth(student.name || "") * 11; 
+                        const nameXText = qrCodeXPos - nameWidth / 2; 
 
-                        pdf.text ( student.name || "", nameXPos, nameYPos );
-                        pdf.text ( (student.privateId && student.privateId.toString ()) || "", nameXPos + 10, nameYPos + 15 );
-                        pdf.addImage ( qr.toDataURL (), "JPEG", qrCodeXPos + 14, qrCodeYPos - 19, 33, 33 );
+                        pdf.text ( student.name || "",  nameXText + 8, nameYPos + 1);
+                        pdf.text ( (student.privateId && student.privateId.toString ()) || "", nameXPos + 30, nameYPos + 15 );
+                        pdf.addImage ( qr.toDataURL (), "JPEG", qrCodeXPos + 12, qrCodeYPos - 21, 32, 32 );
                     }
                 }
             }
@@ -115,8 +120,9 @@ function Page () {
     };
 
     return (
-        <div>
-            <h1>{studentsClass.length + ' طلاب '}</h1>
+        <div className="p-4">
+            {/* <h1 className="text-2xl text-blue-text">{ ' Student Number ' +studentsClass.length }</h1> */}
+            <h1 className="text-2xl text-white"> Student Number  : <span className="text-blue-text">{studentsClass.length}</span></h1>
             <div className="flex justify-center my-12">
                 <button onClick={generateNewPrintPDF} type="button"
                         className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">

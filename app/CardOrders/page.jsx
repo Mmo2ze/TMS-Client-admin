@@ -18,16 +18,18 @@ function Page () {
     }, [])
     return (
         <div>
-            <div>
+            <div className="p-4">
+                <h1 className="mb-4 text-2xl  text-white">CardOrders : <span className="text-blue-text">{orders.length} </span> </h1>
                 {orders.map ((order) => (
-                    <div>
-                        <Link href={`/CardOrders/${order.id}`}>{order.id} {order.teacher.name}  {order.orderStatus}   </Link>
-                        <br/>
+                    <div className="bg-side3-web-color mb-4 p-4 text-xl text-end rounded-lg">
+                        <Link href={`/CardOrders/${order.id}`}>
+                            {order.id}    :   {order.orderStatus}    :      {order.teacher.name} 
+                        </Link>
+    
                     </div>
 
                 ))}
             </div>
-            <h1>CardOrders {orders.length}</h1>
         </div>
     )
 
