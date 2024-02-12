@@ -22,6 +22,8 @@ const config: Config = {
         "blue-color": "#1976d2",
         "button-color": "#1A56DB",
         "blue-text": "#2563eb",
+        "red-text": "#ff0000",
+        "green-text": "#09de09",
         "side3-web-color" :"#221f1f",
         primary: {
           "50": "#eff6ff",
